@@ -18,20 +18,35 @@ function readJsonFile(filePath, label) {
   }
 }
 
-function validateEntry(entry, fileName) {
+function validateEntry(entry, label) {
   if (!entry || Array.isArray(entry) || typeof entry !== "object") {
-    fail(`${fileName}: Die Datei muss genau ein JSON-Objekt enthalten.`);
+    fail(`${label}: Beitrag muss ein JSON-Objekt sein.`);
   }
 
   for (const field of ["name", "rolle", "beitrag", "farbe"]) {
     if (typeof entry[field] !== "string" || entry[field].trim() === "") {
-      fail(`${fileName}: Feld "${field}" fehlt oder ist leer.`);
+      fail(`${label}: Feld "${field}" fehlt oder ist leer.`);
     }
   }
 
   if (!allowedColors.has(entry.farbe)) {
-    fail(`${fileName}: Farbe "${entry.farbe}" ist nicht erlaubt.`);
+    fail(`${label}: Farbe "${entry.farbe}" ist nicht erlaubt.`);
   }
+}
+
+function normalizeEntries(content, fileName) {
+  const entries = Array.isArray(content) ? content : [content];
+
+  if (entries.length === 0) {
+    fail(`${fileName}: Die Datei darf kein leeres Array enthalten.`);
+  }
+
+  entries.forEach((entry, index) => {
+    const label = Array.isArray(content) ? `${fileName}, Beitrag ${index + 1}` : fileName;
+    validateEntry(entry, label);
+  });
+
+  return entries;
 }
 
 function loadEntries() {
@@ -48,14 +63,13 @@ function loadEntries() {
     fail("Im Ordner data/beitraege muss mindestens eine JSON-Datei liegen.");
   }
 
-  return fileNames.map((fileName) => {
+  return fileNames.flatMap((fileName) => {
     if (!fileNamePattern.test(fileName)) {
       fail(`${fileName}: Dateiname bitte nur mit Kleinbuchstaben, Zahlen, Bindestrich oder Unterstrich schreiben.`);
     }
 
-    const entry = readJsonFile(path.join(entriesDir, fileName), fileName);
-    validateEntry(entry, fileName);
-    return entry;
+    const content = readJsonFile(path.join(entriesDir, fileName), fileName);
+    return normalizeEntries(content, fileName);
   });
 }
 

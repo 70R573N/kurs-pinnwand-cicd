@@ -10,7 +10,7 @@ Online:
 Die Idee:
 
 - Eine einfache Webseite zeigt Beiträge aus einer automatisch gebauten Datei `data/beitraege.json`.
-- Jede Person ergänzt genau eine eigene kleine Datei in `data/beitraege/`.
+- Jede Person ergänzt eine eigene kleine Datei in `data/beitraege/`.
 - Die Änderung wird über Git, GitHub und Pull Request sichtbar.
 - Nach dem Merge kann die Seite automatisch über GitHub Pages aktualisiert werden.
 
@@ -46,7 +46,7 @@ Hinweis: Ein direkter Doppelklick auf `index.html` kann je nach Browser nicht fu
 
 Lege im Ordner `data/beitraege/` eine eigene Datei an.
 
-Mehrere Beiträge entstehen durch mehrere Dateien. Jede Quelldatei enthält genau einen Beitrag; der Build-Schritt führt alle Dateien zu `data/beitraege.json` zusammen.
+Mehrere Beiträge entstehen durch mehrere Dateien oder durch mehrere Einträge in einer Datei. Der Build-Schritt führt alle Beiträge zu `data/beitraege.json` zusammen.
 
 Datei:
 
@@ -54,7 +54,7 @@ Datei:
 data/beitraege/vorname.json
 ```
 
-Inhalt:
+Inhalt für einen Beitrag:
 
 ```json
 {
@@ -63,6 +63,25 @@ Inhalt:
   "beitrag": "Ich teste heute Pull Requests.",
   "farbe": "teal"
 }
+```
+
+Inhalt für mehrere Beiträge in einer Datei:
+
+```json
+[
+  {
+    "name": "Niko",
+    "rolle": "Trainer",
+    "beitrag": "Mein erster Beitrag.",
+    "farbe": "teal"
+  },
+  {
+    "name": "Niko",
+    "rolle": "Trainer",
+    "beitrag": "Mein zweiter Beitrag.",
+    "farbe": "green"
+  }
+]
 ```
 
 Erlaubte Farben:
@@ -84,7 +103,7 @@ node scripts/check-data.js
 Die Prüfung kontrolliert:
 
 - Sind alle Dateien in `data/beitraege/` gültiges JSON?
-- Enthält jede Datei genau einen Beitrag?
+- Enthält jede Datei einen Beitrag oder ein Array mit mehreren Beiträgen?
 - Haben alle Beiträge die Pflichtfelder?
 
 Für die lokale Vorschau wird daraus anschließend die gemeinsame Datei gebaut:

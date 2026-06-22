@@ -1,6 +1,6 @@
 {
   "name": "Ben",
-  "rolle": "Teilnehmende",
+  "rolle": "Teilnehmer",
   "beitrag": "Ich prüfe vor dem Pull Request, ob die JSON-Datei gültig ist.",
   "farbe": "amber"
 }

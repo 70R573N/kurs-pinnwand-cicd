@@ -1,6 +1,14 @@
-{
-  "name": "Niko",
-  "rolle": "Trainer",
-  "beitrag": "Ich zeige heute, wie aus kleinen Änderungen ein gemeinsames Projekt entsteht.",
-  "farbe": "teal"
-}
+[
+  {
+    "name": "Niko",
+    "rolle": "Trainer",
+    "beitrag": "Ich zeige heute, wie aus kleinen Änderungen ein gemeinsames Projekt entsteht.",
+    "farbe": "teal"
+  },
+  {
+    "name": "Niko",
+    "rolle": "Trainer",
+    "beitrag": "Meine zweite Karte zeigt: Eine Datei kann auch mehrere Beiträge enthalten.",
+    "farbe": "green"
+  }
+]
