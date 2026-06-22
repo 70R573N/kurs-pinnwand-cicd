@@ -19,11 +19,14 @@ jobs:
       - name: Beitragsdaten prüfen
         run: node scripts/check-data.js
 
+      - name: Beitragsdaten zusammenführen
+        run: node scripts/build-data.js
+
       - name: Website-Paket vorbereiten
         run: |
-          mkdir -p dist
+          mkdir -p dist/data
           cp index.html style.css app.js dist/
-          cp -r data dist/
+          cp data/beitraege.json dist/data/
 
       - name: Website-Paket als Artifact speichern
         uses: actions/upload-artifact@v4
@@ -49,11 +52,14 @@ jobs:
       - name: Beitragsdaten prüfen
         run: node scripts/check-data.js
 
+      - name: Beitragsdaten zusammenführen
+        run: node scripts/build-data.js
+
       - name: GitHub-Pages-Paket vorbereiten
         run: |
-          mkdir -p dist
+          mkdir -p dist/data
           cp index.html style.css app.js dist/
-          cp -r data dist/
+          cp data/beitraege.json dist/data/
 
       - name: GitHub Pages konfigurieren
         uses: actions/configure-pages@v5

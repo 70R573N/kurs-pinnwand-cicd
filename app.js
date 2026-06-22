@@ -33,7 +33,7 @@ async function loadEntries() {
     render(entries);
   } catch (error) {
     count.textContent = "Beiträge konnten nicht geladen werden.";
-    updated.textContent = "Tipp: Projekt über einen lokalen Webserver oder GitHub Pages öffnen.";
+    updated.textContent = "Tipp: Erst node scripts/build-data.js ausführen und dann per lokalem Webserver öffnen.";
   }
 }
 

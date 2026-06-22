@@ -9,20 +9,26 @@ Online:
 
 Die Idee:
 
-- Eine einfache Webseite zeigt Beiträge aus `data/beitraege.json`.
-- Jede Person ergänzt genau einen kleinen Beitrag.
+- Eine einfache Webseite zeigt Beiträge aus einer automatisch gebauten Datei `data/beitraege.json`.
+- Jede Person ergänzt genau eine eigene kleine Datei in `data/beitraege/`.
 - Die Änderung wird über Git, GitHub und Pull Request sichtbar.
 - Nach dem Merge kann die Seite automatisch über GitHub Pages aktualisiert werden.
 
 Das Projekt ist bewusst einfach. Es geht nicht um perfekte Webentwicklung, sondern um den Ablauf:
 
 ```text
-Fork/Branch -> Änderung -> Commit -> Push -> Pull Request -> Review -> Merge -> sichtbares Ergebnis
+Fork/Branch -> Änderung -> Commit -> Push -> Pull Request -> Check/Build -> Merge -> sichtbares Ergebnis
 ```
 
 ## Lokal öffnen
 
-Starte im Projektordner einen kleinen lokalen Webserver:
+Baue zuerst die gemeinsame Beitragsdatei:
+
+```bash
+node scripts/build-data.js
+```
+
+Starte danach im Projektordner einen kleinen lokalen Webserver:
 
 ```bash
 python -m http.server 8000
@@ -34,13 +40,19 @@ python -m http.server 8000
 http://localhost:8000
 ```
 
-Hinweis: Ein direkter Doppelklick auf `index.html` kann je nach Browser nicht funktionieren, weil die Seite die Datei `data/beitraege.json` nachlädt.
+Hinweis: Ein direkter Doppelklick auf `index.html` kann je nach Browser nicht funktionieren, weil die Seite die erzeugte Datei `data/beitraege.json` nachlädt.
 
 ## Beitrag ergänzen
 
-Bearbeite `data/beitraege.json`.
+Lege im Ordner `data/beitraege/` eine eigene Datei an.
 
-Beispiel:
+Datei:
+
+```text
+data/beitraege/vorname.json
+```
+
+Inhalt:
 
 ```json
 {
@@ -69,9 +81,15 @@ node scripts/check-data.js
 
 Die Prüfung kontrolliert:
 
-- Ist `data/beitraege.json` gültiges JSON?
-- Gibt es mindestens einen Beitrag?
+- Sind alle Dateien in `data/beitraege/` gültiges JSON?
+- Enthält jede Datei genau einen Beitrag?
 - Haben alle Beiträge die Pflichtfelder?
+
+Für die lokale Vorschau wird daraus anschließend die gemeinsame Datei gebaut:
+
+```bash
+node scripts/build-data.js
+```
 
 ## GitHub Pages
 
@@ -85,5 +103,6 @@ Dieses Projekt zeigt das CI/CD-Prinzip in klein:
 
 - Änderung wird versioniert
 - Pull Request macht die Änderung prüfbar
-- automatische Prüfung schützt vor kaputtem JSON
+- automatische Prüfung schützt vor kaputten JSON-Dateien
+- Build-Schritt erzeugt die gemeinsame Beitragsdatei
 - Deployment macht das Ergebnis sichtbar
