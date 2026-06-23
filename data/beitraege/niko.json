@@ -10,5 +10,11 @@
     "rolle": "Trainer",
     "beitrag": "Meine zweite Karte zeigt: Eine Datei kann auch mehrere Beiträge enthalten.",
     "farbe": "green"
+  },
+  {
+    "name": "Niko",
+    "rolle": "Trainer",
+    "beitrag": "Meine dritte Karte zeigt: Das ich es kann.",
+    "farbe": "red"
   }
 ]
